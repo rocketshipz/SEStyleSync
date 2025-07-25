@@ -26,6 +26,19 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 // ... other app.use for routes ...
 
+// --- NEW: Serve Admin Frontend Static Files from 'client/build' ---
+// This assumes your React admin app builds to SEStyleSync/client/build
+const adminFrontendBuildPath = path.resolve(__dirname, '..', 'client', 'build');
+app.use('/admin', express.static(adminFrontendBuildPath));
+
+// Handle all /admin routes by serving the admin React app's index.html
+// This is crucial for React Router within the admin app.
+app.get('/admin/*', (req, res) => {
+  res.sendFile(path.join(adminFrontendBuildPath, 'index.html'));
+});
+
+
+
 // ***************************************************************
 // FINAL CORRECTED BLOCK: Serve static frontend files from the project root directory
 // '__dirname' is 'server/', '..' goes up one level to 'SEStyleSync/' (your project root)
@@ -44,6 +57,20 @@ app.get('/', (req, res) => {
 // This route is for Single Page Applications and is not suitable here.
 // ***************************************************************
 
+// Production deployment setup
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static(path.resolve('client', 'build')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve('client', 'build', 'index.html'))
+  );
+} else {
+  // This is for development, where React dev server handles frontend
+  app.get('/', (req, res) => {
+    res.send('API is running...');
+  });
+}
 
 // Error handling middleware (if you have them)
 // import { notFound, errorHandler } from './middleware/errorMiddleware.js';

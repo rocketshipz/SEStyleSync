@@ -1,33 +1,42 @@
-// client/src/pages/HomePage.js
 import React from 'react';
-import { Typography, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button, Box, Container } from '@mui/material';
 
 function HomePage() {
   return (
-    <Box sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom align="center">
-        Welcome to Hexashop!
-      </Typography>
-      <Typography variant="body1" align="center">
-        Your ultimate destination for fashion trends.
-      </Typography>
-      {/*
-        Here you will start adding components that represent sections from your original index.html:
-        - Main Banner/Hero Section
-        - Men's, Women's, Kid's Banners
-        - Latest Products Section (which will fetch data from your backend)
-        - Explore section
-        - Social Media Section
-        - ... etc.
-      */}
-      <Box sx={{ mt: 5, p: 3, border: '1px dashed grey', borderRadius: '8px', textAlign: 'center' }}>
-        <Typography variant="h6" color="text.secondary">
-          This is where your dynamic content will go!
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            StyleSync
+          </Typography>
+          <Button color="inherit" component={Link} to="/login">Login</Button>
+          <Button color="inherit" component={Link} to="/signup">Sign Up</Button>
+          {/* Add a logout button here later, conditionally rendered */}
+        </Toolbar>
+      </AppBar>
+      <Container maxWidth="md" sx={{ mt: 5, textAlign: 'center' }}>
+        <Typography variant="h3" component="h1" gutterBottom>
+          Welcome to StyleSync!
         </Typography>
-        <Typography variant="body2" color="text.secondary" mt={1}>
-          Start breaking down your original `index.html` into smaller React components and integrate them here.
+        <Typography variant="h6" paragraph>
+          Your ultimate destination for fashion trends and personal style.
         </Typography>
-      </Box>
+        <Button variant="contained" component={Link} to="/login" sx={{ mr: 2 }}>
+          Get Started - Login
+        </Button>
+        <Button variant="outlined" component={Link} to="/signup">
+          Register Now
+        </Button>
+        <Box sx={{ mt: 5 }}>
+          <Typography variant="body1">
+            Explore our curated collections and manage your fashion journey.
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+            (This is your main application home page.)
+          </Typography>
+        </Box>
+      </Container>
     </Box>
   );
 }

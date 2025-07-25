@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import './index.css'; // Make sure this path is correct for your CSS
+import App from './App'; // This is the main component containing your Router
+import reportWebVitals from './reportWebVitals'; // Keep this if you use web-vitals
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    {/* Ensure your App component is rendered here, as it contains the Router */}
     <App />
   </React.StrictMode>
 );

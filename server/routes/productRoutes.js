@@ -1,20 +1,31 @@
 // server/routes/productRoutes.js
-import express from 'express'; // Change from require
+import express from 'express';
 const router = express.Router();
-
-// Import your product controller functions (make sure productController.js is also converted to ES Modules)
 import {
   getProducts,
   getProductById,
-  // ... other product controller functions you might have
-} from '../controllers/productController.js'; // IMPORTANT: add .js extension and named imports
+  getAllProductsAdmin, // New import
+  createProduct,      // New import
+  updateProduct,      // New import
+  softDeleteProduct,  // New import
+  hardDeleteProduct,  // New import
+} from '../controllers/productController.js';
+import { protect, admin } from '../middlewares/authMiddleware.js'; // Ensure protect and admin are imported
 
-// Define your product routes
-router.route('/').get(getProducts); // Example: GET all products
-router.route('/:id').get(getProductById); // Example: GET a single product by ID
+// Public routes for customers
+router.route('/').get(getProducts); // Get all active products
+router.route('/:id').get(getProductById); // Get single active product
 
-// You can add more routes here, e.g.,
-// router.route('/').post(protect, admin, createProduct);
-// router.route('/:id').put(protect, admin, updateProduct).delete(protect, admin, deleteProduct);
+// --- ADMIN ROUTES BELOW ---
+router.route('/admin')
+  .get(protect, admin, getAllProductsAdmin) // Admin: Get all products (including soft-deleted)
+  .post(protect, admin, createProduct);    // Admin: Create a new product
 
-export default router; // Change from module.exports
+router.route('/admin/:id')
+  .put(protect, admin, updateProduct)      // Admin: Update a product
+  .delete(protect, admin, softDeleteProduct); // Admin: Soft delete a product (sets isSoftDeleted to true)
+
+router.route('/admin/harddelete/:id')
+  .delete(protect, admin, hardDeleteProduct); // Admin: Permanently delete a product
+
+export default router;
