@@ -1,31 +1,33 @@
-// client/src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Container } from '@mui/material';
-import Header from './components/Header';
-import Footer from './components/Footer';
-
-// Import the new ProductsPage component
 import HomePage from './pages/HomePage';
-import ProductsPage from './pages/ProductsPage'; // <-- Add this line
-// import SingleProductPage from './pages/SingleProductPage';
-// import LoginPage from './pages/LoginPage';
-// ... other pages
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignUpPage';
+import RequestOtpPage from './pages/RequestOTPPage';
+import VerifyOtpPage from './pages/VerifyOTPPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
+import AdminPage from './pages/AdminPage/AdminPage'; // Admin main layout
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
     <Router>
-      <Header />
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<ProductsPage />} /> {/* <-- Add this route */}
-          {/* <Route path="/product/:id" element={<SingleProductPage />} /> */}
-          {/* <Route path="/login" element={<LoginPage />} /> */}
-          {/* ... add more routes */}
-        </Routes>
-      </Container>
-      <Footer />
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/forgot-password" element={<RequestOtpPage />} />
+        <Route path="/verify-otp" element={<VerifyOtpPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+
+        {/* Admin Route - Protected route and nested routes are handled within AdminPage */}
+        {/* The '*' in path="/admin/*" allows AdminPage to handle its own sub-routes */}
+        <Route path="/admin/*" element={<AdminPage />} />
+
+        {/* Catch-all route for any undefined paths */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </Router>
   );
 }
