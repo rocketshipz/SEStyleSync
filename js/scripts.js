@@ -7,6 +7,42 @@
 // Use this file to add JavaScript to your project
 
 /*for shopping cart*/
+document.addEventListener('DOMContentLoaded', function() {
+  // First password field
+  const passwordInput = document.getElementById('password');
+  const togglePassword = document.getElementById('togglePassword');
+
+  togglePassword.addEventListener('click', function () {
+    const type = passwordInput.type === 'password' ? 'text' : 'password';
+    passwordInput.type = type;
+
+    if (type === 'password') {
+      this.classList.remove('fa-eye-slash');
+      this.classList.add('fa-eye');
+    } else {
+      this.classList.remove('fa-eye');
+      this.classList.add('fa-eye-slash');
+    }
+  });
+
+  // ✅ Confirm password field
+  const confirmPasswordInput = document.getElementById('confirmPassword');
+  const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+
+  toggleConfirmPassword.addEventListener('click', function () {
+    const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
+    confirmPasswordInput.type = type;
+
+    if (type === 'password') {
+      this.classList.remove('fa-eye-slash');
+      this.classList.add('fa-eye');
+    } else {
+      this.classList.remove('fa-eye');
+      this.classList.add('fa-eye-slash');
+    }
+  });
+});
+
 if (document.readyState == 'loading'){
     document.addEventListener('DOMContentLoaded' , ready);
 }
