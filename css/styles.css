@@ -10878,11 +10878,8 @@ footer .logo {
 }
 
 .logo img {
-  width: 130px;
-  height: auto;
-  background-color: white; 
-  padding: 10px;          
-  border-radius: 20px;      
+  width: 150px;
+  height: auto;     
 }
 
 
