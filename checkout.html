@@ -14,8 +14,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/cart.css" rel="stylesheet" />
+        <link href="css/checkout.css" rel="stylesheet" />
         
     </head>
+
     <body>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -27,7 +30,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -38,34 +41,116 @@
                             </ul>
                         </li>
                     </ul>
-
-                    <a href="login.html" class="btn btn-outline-dark d-flex align-items-center me-2"> <i class="bi bi-person-fill"></i></i> Login
-                    </a>
-
                     <a href="cart.html" class="btn btn-outline-dark d-flex align-items-center">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                         <span id="cart-count" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                    </a>
+                        </a>
                 </div>
             </div>
         </nav>
+
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">StyleSync</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Discover. Dress Up. Stand Out.</p>
+                    <h1 class="display-4 fw-bolder">Checkout</h1>
                 </div>
             </div>
         </header>
-        <!-- Section-->
-       <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div id="product-list-container" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+       
+        <main class="checkout-container">
+            <section class="checkout-left">
+                <h1>Checkout</h1>
+                <h2>Shipping Information</h2>
+
+                <form id="checkout-form">
+                    <label>Full name *</label>
+                    <input type="text" placeholder="Enter full name" required>
+
+                    <label>Email address *</label>
+                    <input type="email" placeholder="Enter email address" required>
+
+                    <label>Phone number *</label>
+                    <input type="tel" placeholder="Enter phone number" required>
+
+                    <label>Country *</label>
+                        <select required>
+                            <option value="">Choose country</option>
+                            <option>Malaysia</option>
+                            <option>Singapore</option>
+                        </select>
+
+                    <div class="flex-group">
+                        <div>
+                            <label>City</label>
+                            <input type="text" placeholder="Enter city">
+                        </div>
+                        <div>
+                            <label>State</label>
+                            <input type="text" placeholder="Enter state">
+                        </div>
+                        <div>
+                            <label>ZIP Code</label>
+                            <input type="text" placeholder="Enter ZIP code">
+                        </div>
                     </div>
-            </div>
-        </section>
+                    <label><input type="checkbox" required> I have read and agree to the Terms and Conditions.</label>
+                </form>
+            </section>
+    
+            <aside class="checkout-right">
+                <h2>Select Payment Method</h2>
+                <div class="payment-method">
+
+                    <div class="payment-option" id="option-card" onclick="selectPayment('card')">
+                        <div class="option-left">
+                        <img src="https://img.icons8.com/ios-filled/50/000000/bank-card-back-side.png" alt="Card Icon">
+                        <span>Card</span>
+                        </div>
+                        <span class="checkmark" id="check-card">&#10003;</span>
+                    </div>
+
+                    <div class="payment-option" id="option-paypal" onclick="selectPayment('paypal')">
+                        <div class="option-left">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal Icon" class="paypal-icon">
+                        </div>
+                        <span class="checkmark" id="check-paypal">&#10003;</span>
+                    </div>
+
+                    <!-- Hidden Card Form -->
+                    <div class="card-form" id="card-form">
+                        <h4>Card Details</h4>
+                        <input type="text" id="card-number" placeholder="Card Number">
+                        <input type="text" id="card-name" placeholder="Name on Card">
+                       <input type="text" id="card-expiry" placeholder="Expiry Date (MM/YY)" inputmode="numeric" maxlength="5">
+                        <input type="text" id="card-cvv" placeholder="CVV" inputmode="numeric">
+                    </div>
+                </div>
+
+                <h2>Review your cart</h2>
+                <div id="cart-items"></div>
+
+                <div class="discount-code">
+                    <input type="text" id="discount-code-input" placeholder="Discount code">
+                    <button id="apply-discount-btn">Apply</button>
+                </div>
+
+                <div class="summary">
+                    <p>Subtotal: <span id="subtotal">$ 0.00</span></p>
+                    <p>Shipping: <span id="shipping">$ 0.00</span></p>
+                    <p>Discount: <span id="discount">$ 0.00</span></p>
+                    <h3>Total: <span id="total">$ 0.00</span></h3>
+                </div>
+
+                <button id="pay-now-btn" class="pay-btn" onclick="payNow()">Pay Now</button>
+
+                <div class="secure">
+                    🔒 Secure Checkout – SSL Encrypted  
+                    <p>Ensuring your financial and personal details are secure during every transaction.</p>
+                </div>
+            </aside>
+        </main>
         <!-- Footer-->
         <footer>
         <div class="container">
@@ -119,15 +204,16 @@
                             <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                             <li><a href="#"><i class="fa fa-behance"></i></a></li>
                         </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
-    
+        </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="js/cart.js"></script>
+        <script src="js/checkout.js"></script>
     </body>
 </html>
+
