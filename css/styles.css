@@ -10927,7 +10927,7 @@ footer .under-footer a:hover {
 
 /*     Shopping Cart     */
 
- .btn-purchase{
+ .btn-purchase-wrapper{
    text-align: center;
    margin: auto;
    padding: 2%;
