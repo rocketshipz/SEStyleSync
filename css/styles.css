@@ -10929,7 +10929,7 @@ footer .under-footer a:hover {
 
  .btn-purchase-wrapper{
    text-align: center;
-   margin: auto;
+   margin-right: 0.5em;
    padding: 2%;
    width: 50%;
  }
