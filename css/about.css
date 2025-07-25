@@ -1,0 +1,75 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 60px 32px;
+  margin: auto;
+}
+
+.section {
+  margin-bottom: 48px;
+}
+
+.center {
+  text-align: center;
+}
+
+.main-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin-bottom: 24px;
+}
+
+.highlight {
+  color: #FE2C55;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: space-between;
+}
+
+.card {
+  flex: 1 1 45%;
+  min-width: 280px;
+  text-align: center;
+}
+
+.sub-title {
+  color: #FE2C55;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.features-list,
+.team-list {
+  list-style: disc;
+  padding-left: 20px;
+  text-align: left;
+  margin: 12px auto;
+  max-width: 600px;
+}
+
+.nav {
+  --bs-nav-link-padding-x: 1rem;
+  --bs-nav-link-padding-y: 0.5rem;
+  --bs-nav-link-font-weight: ;
+  --bs-nav-link-color: var(--bs-link-color);
+  --bs-nav-link-hover-color: var(--bs-link-hover-color);
+  --bs-nav-link-disabled-color: #6c757d;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
