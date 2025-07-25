@@ -60,74 +60,76 @@
         </header>
        
         <main class="checkout-container">
-            <section class="checkout-left">
-                <h1>Checkout</h1>
-                <h2>Shipping Information</h2>
+            <div class="checkout-left">
+                <section class="shipping-info">
+                    <h2>Shipping Information</h2>
+                    <form id="checkout-form">
+                        <label>Full name *</label>
+                        <input type="text" placeholder="Enter full name" required>
 
-                <form id="checkout-form">
-                    <label>Full name *</label>
-                    <input type="text" placeholder="Enter full name" required>
+                        <label>Email address *</label>
+                        <input type="email" placeholder="Enter email address" required>
 
-                    <label>Email address *</label>
-                    <input type="email" placeholder="Enter email address" required>
+                        <label>Phone number *</label>
+                        <input type="tel" placeholder="Enter phone number" required>
 
-                    <label>Phone number *</label>
-                    <input type="tel" placeholder="Enter phone number" required>
+                        <label>Country *</label>
+                            <select required>
+                                <option value="">Choose country</option>
+                                <option>Malaysia</option>
+                                <option>Singapore</option>
+                            </select>
 
-                    <label>Country *</label>
-                        <select required>
-                            <option value="">Choose country</option>
-                            <option>Malaysia</option>
-                            <option>Singapore</option>
-                        </select>
-
-                    <div class="flex-group">
-                        <div>
-                            <label>City</label>
-                            <input type="text" placeholder="Enter city">
+                        <div class="flex-group">
+                            <div>
+                                <label>City</label>
+                                <input type="text" placeholder="Enter city">
+                            </div>
+                            <div>
+                                <label>State</label>
+                                <input type="text" placeholder="Enter state">
+                            </div>
+                            <div>
+                                <label>ZIP Code</label>
+                                <input type="text" placeholder="Enter ZIP code">
+                            </div>
                         </div>
-                        <div>
-                            <label>State</label>
-                            <input type="text" placeholder="Enter state">
+                        <label><input type="checkbox" required> I have read and agree to the Terms and Conditions.</label>
+                    </form>
+                </section>
+
+                <section class="checkout-payment">
+                    <h2>Select Payment Method</h2>
+                    <div class="payment-method">
+
+                        <div class="payment-option" id="option-card" onclick="selectPayment('card')">
+                            <div class="option-left">
+                            <img src="https://img.icons8.com/ios-filled/50/000000/bank-card-back-side.png" alt="Card Icon">
+                            <span>Card</span>
+                            </div>
+                            <span class="checkmark" id="check-card">&#10003;</span>
                         </div>
-                        <div>
-                            <label>ZIP Code</label>
-                            <input type="text" placeholder="Enter ZIP code">
+
+                        <div class="payment-option" id="option-paypal" onclick="selectPayment('paypal')">
+                            <div class="option-left">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal Icon" class="paypal-icon">
+                            </div>
+                            <span class="checkmark" id="check-paypal">&#10003;</span>
+                        </div>
+
+                        <!-- Hidden Card Form -->
+                        <div class="card-form" id="card-form">
+                            <h4>Card Details</h4>
+                            <input type="text" id="card-number" placeholder="Card Number">
+                            <input type="text" id="card-name" placeholder="Name on Card">
+                        <input type="text" id="card-expiry" placeholder="Expiry Date (MM/YY)" inputmode="numeric" maxlength="5">
+                            <input type="text" id="card-cvv" placeholder="CVV" inputmode="numeric">
                         </div>
                     </div>
-                    <label><input type="checkbox" required> I have read and agree to the Terms and Conditions.</label>
-                </form>
-            </section>
-    
+                </section>
+            </div>
+            
             <aside class="checkout-right">
-                <h2>Select Payment Method</h2>
-                <div class="payment-method">
-
-                    <div class="payment-option" id="option-card" onclick="selectPayment('card')">
-                        <div class="option-left">
-                        <img src="https://img.icons8.com/ios-filled/50/000000/bank-card-back-side.png" alt="Card Icon">
-                        <span>Card</span>
-                        </div>
-                        <span class="checkmark" id="check-card">&#10003;</span>
-                    </div>
-
-                    <div class="payment-option" id="option-paypal" onclick="selectPayment('paypal')">
-                        <div class="option-left">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal Icon" class="paypal-icon">
-                        </div>
-                        <span class="checkmark" id="check-paypal">&#10003;</span>
-                    </div>
-
-                    <!-- Hidden Card Form -->
-                    <div class="card-form" id="card-form">
-                        <h4>Card Details</h4>
-                        <input type="text" id="card-number" placeholder="Card Number">
-                        <input type="text" id="card-name" placeholder="Name on Card">
-                       <input type="text" id="card-expiry" placeholder="Expiry Date (MM/YY)" inputmode="numeric" maxlength="5">
-                        <input type="text" id="card-cvv" placeholder="CVV" inputmode="numeric">
-                    </div>
-                </div>
-
                 <h2>Review your cart</h2>
                 <div id="cart-items"></div>
 
@@ -158,7 +160,7 @@
                 <div class="col-lg-3">
                     <div class="first-item">
                         <div class="logo">
-                            <img src="assets/images/white-logo.png" alt="hexashop ecommerce templatemo">
+                            <img src="static/Logo.png">
                         </div>
                         <ul>
                             <li><a href="#">StyleSync Ltd. 5th Floor, Orion Plaza, 245 Madison Avenue, New York, NY 10016, United States</a></li>

@@ -10877,6 +10877,15 @@ footer .logo {
   margin-bottom: 20px;
 }
 
+.logo img {
+  width: 130px;
+  height: auto;
+  background-color: white; 
+  padding: 10px;          
+  border-radius: 20px;      
+}
+
+
 footer ul li {
   display: block;
   margin-bottom: 10px;
