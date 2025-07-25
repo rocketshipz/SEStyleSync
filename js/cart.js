@@ -192,18 +192,6 @@ function quantityChanged(event) {
   updateCartInLocalStorage();
 }
 
-function purchaseClicked() {
-  alert("Thank you for your purchase!");
-
-  const cartItems = document.querySelector(".cart-items");
-  while (cartItems.firstChild) {
-    cartItems.removeChild(cartItems.firstChild);
-  }
-
-  localStorage.removeItem("cartItems");
-  updateCartTotal();
-}
-
 function updateCartCount() {
   const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
