@@ -70,11 +70,12 @@ function addToCartClicked(event){
     var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText;
     var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText;
     var imageSrc = shopItem.getElementsByClassName('shop-item-image')[0].src;
+    var quantity = shopItem.querySelector('input[name="quantity"]').value || 1;
     addItemToCart(title,price,imageSrc);
     updateCartTotal();
 }
 
-function addItemToCart(title, price, imageSrc){
+function addItemToCart(title, price, imageSrc, quantity){
     var cartRow = document.createElement('tr');
     cartRow.classList.add('cart-row');
     var cartItems = document.getElementsByClassName('cart-items')[0];
@@ -96,7 +97,7 @@ function addItemToCart(title, price, imageSrc){
             <span class="cart-price cart-column">${price}</span>
         </td>
         <td class="cart-item cart-column">
-            <input class="cart-quantity-input" type="number" value="1" style="width: 50px">
+            <input class="cart-quantity-input" type="number" value="${quantity}" style="width: 50px">
             <button class="btn btn-danger" type="button">Remove</button>
         </td>        
     `;
