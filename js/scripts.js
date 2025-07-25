@@ -41,6 +41,20 @@ document.addEventListener('DOMContentLoaded', function() {
       this.classList.add('fa-eye-slash');
     }
   });
+
+  const form = document.querySelector('form');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      const password = document.getElementById('password');
+      const confirmPassword = document.getElementById('confirmPassword');
+      if (password && confirmPassword && password.value !== confirmPassword.value) {
+        e.preventDefault();
+        alert('Passwords do not match!');
+        password.value = '';
+        confirmPassword.value = ''; 
+      }
+    });
+  }
 });
 
 if (document.readyState == 'loading'){

@@ -392,6 +392,15 @@ button:not(:disabled),
   cursor: pointer;
 }
 
+.half-width-btn {
+  width: 50% !important;
+  min-width: 100px;
+  display: block !important;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
 ::-moz-focus-inner {
   padding: 0;
   border-style: none;
