@@ -8,6 +8,7 @@
 }
 
 body {
+  height: 100%;
   min-height: 100vh;
   background: url("../images/forest_bg.jpg") no-repeat center center fixed;
   background-size: cover;
@@ -15,7 +16,7 @@ body {
 }
 
 .center-section {
-  min-height: calc(100vh - 101px);
+  min-height: calc(100vh - 101px);;
   display: flex;
   justify-content: center;
   align-items: center;
