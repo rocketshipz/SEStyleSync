@@ -8,16 +8,35 @@ body {
 
 .container {
   max-width: 1200px;
-  padding: 60px 32px;
   margin: auto;
 }
 
+.main-title {
+  padding-top: 30px;
+}
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px; 
+  height: auto;
+}
+
 .section {
+  margin-top: 40px;  
   margin-bottom: 48px;
 }
 
 .center {
   text-align: center;
+}
+
+.team-list {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: table; /* or use display: inline-block; */
 }
 
 .main-title {
@@ -28,7 +47,7 @@ body {
 }
 
 .highlight {
-  color: #FE2C55;
+  color: #06402B;
 }
 
 .grid {
@@ -42,10 +61,24 @@ body {
   flex: 1 1 45%;
   min-width: 280px;
   text-align: center;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
+  align-items: center;     /* horizontal centering */
+  min-height: 250px;       /* optional: set a height for vertical centering */
+}
+
+.description {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 50px auto;
+  max-width: 800px;
 }
 
 .sub-title {
-  color: #FE2C55;
+  color: #06402B;
   font-size: 1.5rem;
   margin-bottom: 12px;
   font-weight: 600;
@@ -60,16 +93,3 @@ body {
   max-width: 600px;
 }
 
-.nav {
-  --bs-nav-link-padding-x: 1rem;
-  --bs-nav-link-padding-y: 0.5rem;
-  --bs-nav-link-font-weight: ;
-  --bs-nav-link-color: var(--bs-link-color);
-  --bs-nav-link-hover-color: var(--bs-link-hover-color);
-  --bs-nav-link-disabled-color: #6c757d;
-  display: flex;
-  flex-wrap: wrap;
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-}
