@@ -1,179 +1,110 @@
-/*!
-* Start Bootstrap - Shop Homepage v5.0.6 (https://startbootstrap.com/template/shop-homepage)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
-*/
-// This file is intentionally blank
-// Use this file to add JavaScript to your project
+// Ensure the DOM is fully loaded before attaching event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent default form submission
 
-/*for shopping cart*/
-document.addEventListener('DOMContentLoaded', function() {
-  // First password field
-  const passwordInput = document.getElementById('password');
-  const togglePassword = document.getElementById('togglePassword');
+            const email = loginForm.querySelector('input[name="email"]').value;
+            const password = loginForm.querySelector('input[name="password"]').value;
 
-  togglePassword.addEventListener('click', function () {
-    const type = passwordInput.type === 'password' ? 'text' : 'password';
-    passwordInput.type = type;
+            try {
+                const response = await fetch('/api/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
 
-    if (type === 'password') {
-      this.classList.remove('fa-eye-slash');
-      this.classList.add('fa-eye');
-    } else {
-      this.classList.remove('fa-eye');
-      this.classList.add('fa-eye-slash');
+                const data = await response.json(); // Parse the JSON response
+
+                if (response.ok) { // Check if HTTP status is 2xx
+                    console.log('Login successful:', data);
+                    // Store user info (including token) in localStorage
+                    localStorage.setItem('userInfo', JSON.stringify(data));
+                    alert('Login Successful!'); // User-friendly alert
+                    window.location.href = 'index.html'; // Redirect to home page
+                } else {
+                    // Handle server-side errors (e.g., 401 Unauthorized, 400 Bad Request)
+                    console.error('Login failed:', data.message || 'Something went wrong');
+                    alert(data.message || 'Login failed. Please check your credentials.');
+                }
+            } catch (error) {
+                // Handle network errors or other unexpected issues
+                console.error('Network error or unexpected error during login:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        });
     }
-  });
 
-  // ✅ Confirm password field
-  const confirmPasswordInput = document.getElementById('confirmPassword');
-  const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+    // Keep the password toggle functionality if it's in this file
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordField = document.getElementById('password');
 
-  toggleConfirmPassword.addEventListener('click', function () {
-    const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
-    confirmPasswordInput.type = type;
-
-    if (type === 'password') {
-      this.classList.remove('fa-eye-slash');
-      this.classList.add('fa-eye');
-    } else {
-      this.classList.remove('fa-eye');
-      this.classList.add('fa-eye-slash');
+    if (togglePassword && passwordField) {
+        togglePassword.addEventListener('click', function () {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
     }
-  });
 
-  const form = document.querySelector('form');
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      const password = document.getElementById('password');
-      const confirmPassword = document.getElementById('confirmPassword');
-      if (password && confirmPassword && password.value !== confirmPassword.value) {
-        e.preventDefault();
-        alert('Passwords do not match!');
-        password.value = '';
-        confirmPassword.value = ''; 
-      }
-    });
-  }
+    const signupForm = document.getElementById('signupForm');
+    if (signupForm) {
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent default form submission
+
+            const name = signupForm.querySelector('input[name="name"]').value;
+            const email = signupForm.querySelector('input[name="email"]').value;
+            const password = signupForm.querySelector('input[name="password"]').value;
+            const confirmPassword = signupForm.querySelector('input[name="confirmPassword"]').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return; // Stop the function if passwords don't match
+            }
+
+            try {
+                const response = await fetch('/api/users/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password }) // Only send name, email, password to backend
+                });
+
+                const data = await response.json();
+
+                if (response.ok) { // Check if HTTP status is 2xx
+                    console.log('Signup successful:', data);
+                    localStorage.setItem('userInfo', JSON.stringify(data));
+                    alert('Registration Successful! You can now log in.'); // User-friendly alert
+                    window.location.href = 'index.html'; // Redirect to home or login page
+                } else {
+                    console.error('Signup failed:', data.message || 'Something went wrong');
+                    alert(data.message || 'Registration failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Network error or unexpected error during signup:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        });
+    }
+
+    // Keep the password toggle functionality for signup page if needed
+    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+    const confirmPasswordField = document.getElementById('confirmPassword');
+
+    if (toggleConfirmPassword && confirmPasswordField) {
+        toggleConfirmPassword.addEventListener('click', function () {
+            const type = confirmPasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    }
+
 });
 
-if (document.readyState == 'loading'){
-    document.addEventListener('DOMContentLoaded' , ready);
-}
-
-else{
-    ready();
-}
-
-
- function ready(){
-    var removeCartItemButton = document.getElementsByClassName('btn-danger');
-    for (var i = 0 ; i < removeCartItemButton.length; i++){
-        var button = removeCartItemButton[i];
-        button.addEventListener('click', removeCartItem)
-    }
-
-    var quantityInputs = document.getElementsByClassName('cart-quantity-input');
-    for(var i = 0 ;i < quantityInputs.length ; i++){
-        var input = quantityInputs[i];
-        input.addEventListener('change', quantityChanged);
-    }
-    
-    var addToCartButtons = document.getElementsByClassName('shop-item-button');
-    for(var i = 0; i< addToCartButtons.length; i++){
-        var button = addToCartButtons[i];
-        button.addEventListener('click',addToCartClicked)
-    }
-
-    document.getElementsByClassName('btn-purchase')[0].addEventListener('click', purchaseClicked)
- }
-
-
- function purchaseClicked(){
-     alert('Thank you for your purchase!!!');
-     var cartItems = document.getElementsByClassName('cart-items')[0];
-     while(cartItems.hasChildNodes()){
-         cartItems.removeChild(cartItems.firstChild)
-     }
-     updateCartTotal();
- }
-
-function removeCartItem(event){
-    var buttonClicked = event.target;
-    buttonClicked.parentElement.parentElement.remove();
-    updateCartTotal();
-    
-}
-
-function  quantityChanged(event){
-    var input = event.target;
-    if(isNaN(input.value) || input.value <= 0 ){
-        input.value = 1;
-    }
-    updateCartTotal();
-}
-
-
-function addToCartClicked(event){
-    var button = event.target;
-    var shopItem = button.parentElement.parentElement;
-    var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText;
-    var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText;
-    var imageSrc = shopItem.getElementsByClassName('shop-item-image')[0].src;
-    var quantity = shopItem.querySelector('input[name="quantity"]').value || 1;
-    addItemToCart(title,price,imageSrc);
-    updateCartTotal();
-}
-
-function addItemToCart(title, price, imageSrc, quantity){
-    var cartRow = document.createElement('tr');
-    cartRow.classList.add('cart-row');
-    var cartItems = document.getElementsByClassName('cart-items')[0];
-    var cartItemNames = cartItems.getElementsByClassName('cart-item-title');
-
-    for (i = 0; i< cartItemNames.length ; i++){
-        if(cartItemNames[i].innerText == title){
-            alert('This item already has added to the cart!');
-            return
-        }
-    }
-    var cartRowContents = `
-
-        <td class="cart-item cart-column">
-            <img class="cart-item-image" src="${imageSrc}" width="50" height="50">
-            <span class="cart-item-title">${title}</span>                  
-        </td>
-        <td class="cart-item cart-column">
-            <span class="cart-price cart-column">${price}</span>
-        </td>
-        <td class="cart-item cart-column">
-            <input class="cart-quantity-input" type="number" value="${quantity}" style="width: 50px">
-            <button class="btn btn-danger" type="button">Remove</button>
-        </td>        
-    `;
-     
-            
-    cartRow.innerHTML = cartRowContents;
-    cartItems.append(cartRow);
-    cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click', removeCartItem);
-    cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', quantityChanged)
-}
-
-
-function updateCartTotal(){
-    var cartItemContainer = document.getElementsByClassName('cart-items')[0];
-    var cartRows = cartItemContainer.getElementsByClassName('cart-row');
-    var total = 0;
-    for (var i = 0 ; i< cartRows.length ; i++){
-        var cartRow =cartRows[i];
-        var priceElement = cartRow.getElementsByClassName('cart-price')[0];
-        var quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0];
-        var price = parseFloat(priceElement.innerText.replace('Rs ' , ''))
-        var quantity = quantityElement.value;
-        total = total + (price * quantity);
-         
-    }
-    total = Math.round(total * 100 )/100;
-    document.getElementsByClassName('cart-total-price')[0].innerText = total + '.00';
- 
-}
